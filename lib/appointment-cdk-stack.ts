@@ -24,8 +24,15 @@ export class AppointmentCdkStack extends cdk.Stack {
 
     // DynamoDB
     const appointmentTable = new dynamodb.Table(this, "Appointments", {
-      partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      tableName: "Appointments",
+      partitionKey: { name: "appointmentId", type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST
+    });
+
+    appointmentTable.addGlobalSecondaryIndex({
+      indexName: "insuredId-index",
+      partitionKey: { name: "insuredId", type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.ALL
     });
 
     new cdk.CfnOutput(this, "AppointmentsTableName", {

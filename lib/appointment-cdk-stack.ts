@@ -88,7 +88,7 @@ export class AppointmentCdkStack extends cdk.Stack {
     new events.Rule(this, "ForwardToSqsRule", {
       eventBus,
       eventPattern: {
-        source: ["appointmentHandler"],
+        source: ["appointment.event"],
       },
       targets: [new targets.SqsQueue(fallbackQueue)],
     });

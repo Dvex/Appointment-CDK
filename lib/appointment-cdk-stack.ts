@@ -82,17 +82,17 @@ export class AppointmentCdkStack extends cdk.Stack {
       exportName: "AppointmentEventBusName",
     });
 
+    // Cola SQS final
     const fallbackQueue = new sqs.Queue(this, "BackupQueue");
 
     new events.Rule(this, "ForwardToSqsRule", {
       eventBus,
       eventPattern: {
-        source: ["appointment.handler"],
+        source: ["appointmentHandler"],
       },
       targets: [new targets.SqsQueue(fallbackQueue)],
     });
 
-    // Cola SQS final
     new cdk.CfnOutput(this, "BackupQueueArn", {
       value: fallbackQueue.queueArn,
       exportName: "BackupQueueArn",

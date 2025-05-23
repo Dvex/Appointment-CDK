@@ -56,15 +56,15 @@ export class AppointmentCdkStack extends cdk.Stack {
     topic.addSubscription(new subs.SqsSubscription(sqsCl));
 
     // Cola SQS para PerÃº
-    new cdk.CfnOutput(this, "QueuePEName", {
+    new cdk.CfnOutput(this, "QueuePEArn", {
       value: sqsPe.queueArn,
-      exportName: "QueuePEName",
+      exportName: "QueuePEArn",
     });
 
     // Cola SQS para Chile
-    new cdk.CfnOutput(this, "QueueCLName", {
+    new cdk.CfnOutput(this, "QueueCLArn", {
       value: sqsCl.queueArn,
-      exportName: "QueueCLName",
+      exportName: "QueueCLArn",
     });
 
     // EventBridge
@@ -78,7 +78,7 @@ export class AppointmentCdkStack extends cdk.Stack {
     });
 
     new cdk.CfnOutput(this, "AppointmentEventBusName", {
-      value: eventBus.eventBusArn,
+      value: eventBus.eventBusName,
       exportName: "AppointmentEventBusName",
     });
 
